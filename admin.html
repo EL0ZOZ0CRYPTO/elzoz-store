@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EL ZOZ | لوحة التحكم الخاصة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+    <!-- ================= LOGIN SCREEN (شاشة تسجيل الدخول) ================= -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <div class="login-badge en-font" dir="ltr">ADMIN ACCESS ONLY</div>
+            <div class="login-logo" dir="ltr">
+                <span class="brand-mark">Z</span>
+                <span class="en-font">EL ZOZ PANEL</span>
+            </div>
+            <p class="login-sub">سجّل الدخول للتحكم في التيشرتات، الأسعار، البانر، وصور المتجر</p>
+
+            <form id="loginForm" onsubmit="handleAdminLogin(event)">
+                <div class="field-group">
+                    <label>اسم المستخدم (Username)</label>
+                    <input type="text" id="loginUser" placeholder="اكتب اسم المستخدم" autocomplete="username" required dir="ltr">
+                </div>
+
+                <div class="field-group">
+                    <label>كلمة المرور (Password)</label>
+                    <div class="pass-wrap">
+                        <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" required dir="ltr">
+                        <button type="button" class="toggle-pass" onclick="togglePasswordVisibility()">👁️</button>
+                    </div>
+                </div>
+
+                <div class="login-error" id="loginError">❌ اسم المستخدم أو كلمة المرور غير صحيحة!</div>
+
+                <button type="submit" class="primary-btn full-w">دخول لوحة التحكم ⚡</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= ADMIN DASHBOARD (لوحة التحكم بعد الدخول) ================= -->
+    <div class="dashboard-wrapper hidden" id="dashboardApp">
+        <header class="admin-topbar">
+            <div class="admin-brand" dir="ltr">
+                <span class="brand-mark">Z</span>
+                <div>
+                    <strong class="en-font">EL ZOZ COMMAND CENTER</strong>
+                    <span class="status-dot">● متصل ومزامن</span>
+                </div>
+            </div>
+
+            <div class="topbar-actions">
+                <a href="index.html" target="_blank" class="outline-btn">معاينة المتجر لايف ↗</a>
+                <button type="button" class="danger-btn" onclick="logoutAdmin()">تسجيل خروج</button>
+            </div>
+        </header>
+
+        <main class="admin-container">
+            <!-- إحصائيات سريعة -->
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-label">عدد التيشرتات المعروضة</span>
+                    <strong class="stat-value en-font" id="statProductsCount">0</strong>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">كوبونات الخصم الفعالة</span>
+                    <strong class="stat-value en-font" id="statPromosCount">0</strong>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">رقم واتساب الطلبات</span>
+                    <strong class="stat-value en-font" id="statWhatsapp" dir="ltr">-</strong>
+                </div>
+            </div>
+
+            <!-- التبويبات الرئيسية -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchTab('productsTab', this)">👕 إدارة التيشرتات والوصف</button>
+                <button class="tab-btn" onclick="switchTab('bannerTab', this)">🖼️ البانر والـ 4 مراحل والصور</button>
+                <button class="tab-btn" onclick="switchTab('settingsTab', this)">⚙️ الواتساب والكوبونات والنسخ</button>
+            </div>
+
+            <!-- ================= TAB 1: إدارة التيشرتات ================= -->
+            <section class="tab-panel active" id="productsTab">
+                <div class="two-col-layout">
+                    <!-- فورم إضافة / تعديل تيشرت -->
+                    <div class="panel-card">
+                        <div class="card-head">
+                            <h2 id="formModeTitle">+ إضافة تيشرت جديد</h2>
+                            <button type="button" class="ghost-btn hidden" id="cancelEditBtn" onclick="resetProductForm()">إلغاء التعديل</button>
+                        </div>
+
+                        <form id="productForm" onsubmit="saveProductFromAdmin(event)">
+                            <input type="hidden" id="editProductId">
+
+                            <div class="field-group">
+                                <label>اسم التيشرت *</label>
+                                <input type="text" id="prodName" placeholder="مثال: تيشرت أوفر سايز - سايبر دراجون" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label>وصف التيشرت (الخامة، القصة، التفاصيل) *</label>
+                                <textarea id="prodDesc" rows="3" placeholder="مثال: قطن مصري 100% تقيل معالج ضد الانكماش، طباعة بارزة عالية الجودة..." required></textarea>
+                            </div>
+
+                            <div class="row-2">
+                                <div class="field-group">
+                                    <label>السعر الحالي (جنيه) *</label>
+                                    <input type="number" id="prodPrice" placeholder="450" min="1" required>
+                                </div>
+                                <div class="field-group">
+                                    <label>السعر قبل الخصم (اختياري)</label>
+                                    <input type="number" id="prodOldPrice" placeholder="550" min="0">
+                                </div>
+                            </div>
+
+                            <div class="row-2">
+                                <div class="field-group">
+                                    <label>القسم</label>
+                                    <select id="prodCategory">
+                                        <option value="oversized">أوفر سايز (Oversized)</option>
+                                        <option value="graphic">جرافيك (Graphic)</option>
+                                        <option value="basic">بيسك هيفي (Basic)</option>
+                                    </select>
+                                </div>
+                                <div class="field-group">
+                                    <label>بادج الخامة / الوزن</label>
+                                    <input type="text" id="prodGsm" value="280 GSM" placeholder="280 GSM">
+                                </div>
+                            </div>
+
+                            <div class="field-group">
+                                <label>المقاسات المتاحة</label>
+                                <div class="sizes-checkboxes" id="prodSizesBoxes">
+                                    <label class="chk-pill"><input type="checkbox" value="S"> S</label>
+                                    <label class="chk-pill"><input type="checkbox" value="M" checked> M</label>
+                                    <label class="chk-pill"><input type="checkbox" value="L" checked> L</label>
+                                    <label class="chk-pill"><input type="checkbox" value="XL" checked> XL</label>
+                                    <label class="chk-pill"><input type="checkbox" value="XXL" checked> XXL</label>
+                                </div>
+                            </div>
+
+                            <!-- ألوان وصور التيشرت -->
+                            <div class="field-group">
+                                <div class="colors-header">
+                                    <label>ألوان وصور التيشرت (ارفع صورة من جهازك أو حط رابط)</label>
+                                    <button type="button" class="small-lime-btn" onclick="addColorVariantRow()">+ لون إضافي</button>
+                                </div>
+                                <div id="colorVariantsContainer" class="variants-list"></div>
+                            </div>
+
+                            <button type="submit" class="primary-btn full-w" id="saveProdBtn">حفظ ونشر التيشرت في الموقع ✅</button>
+                        </form>
+                    </div>
+
+                    <!-- قائمة التيشرتات الحالية -->
+                    <div class="panel-card">
+                        <div class="card-head">
+                            <h2>التيشرتات المعروضة حالياً</h2>
+                            <span class="hint-text">أي تعديل بيظهر فوراً في المتجر</span>
+                        </div>
+                        <div id="adminProductsList" class="admin-products-list"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= TAB 2: البانر والـ 4 مراحل ================= -->
+            <section class="tab-panel" id="bannerTab">
+                <div class="panel-card">
+                    <div class="card-head">
+                        <h2>تعديل البانر الرئيسي وصورة العرض المتحرك (Showcase)</h2>
+                        <button type="button" class="primary-btn" onclick="saveBannerSettings()">حفظ تعديلات البانر 💾</button>
+                    </div>
+
+                    <div class="two-col-layout">
+                        <div>
+                            <div class="field-group">
+                                <label>صورة التيشرت الرئيسية في البانر (Hero Image)</label>
+                                <input type="text" id="heroImgUrlInput" placeholder="رابط الصورة أو مسارها images/hero.jpg" oninput="previewHeroImage()">
+                                <div class="upload-row">
+                                    <label class="file-upload-btn">
+                                        📁 اختر صورة من جهازك
+                                        <input type="file" accept="image/*" onchange="uploadImageToField(this, 'heroImgUrlInput', 'heroImgPreview')">
+                                    </label>
+                                    <span class="hint-text">يفضل صورة مربعة أو طولية واضحة</span>
+                                </div>
+                                <img id="heroImgPreview" class="banner-preview-img" src="" alt="Hero Preview">
+                            </div>
+
+                            <div class="row-2">
+                                <div class="field-group">
+                                    <label>العلامة العلوية (سطر 1)</label>
+                                    <input type="text" id="hudTitleInput" dir="ltr">
+                                </div>
+                                <div class="field-group">
+                                    <label>العلامة العلوية (سطر 2)</label>
+                                    <input type="text" id="hudSubInput" dir="ltr">
+                                </div>
+                            </div>
+
+                            <div class="field-group">
+                                <label>عنوان قسم المنتجات في المتجر</label>
+                                <input type="text" id="catalogHeadingInput" placeholder="كولكشن EL ZOZ المتاح">
+                            </div>
+
+                            <div class="field-group">
+                                <label>شريط الإعلان / الكوبون أعلى المنتجات</label>
+                                <input type="text" id="promoBannerInput" placeholder="🎁 كود خصم 10%: ZOZ10">
+                            </div>
+                        </div>
+
+                        <!-- تعديل نصوص الـ 4 مراحل -->
+                        <div class="stages-editor">
+                            <div class="stage-edit-box">
+                                <strong>المرحلة 01 (البداية)</strong>
+                                <input type="text" id="s1Title" placeholder="عنوان المرحلة 1">
+                                <textarea id="s1Desc" rows="2" placeholder="وصف المرحلة 1"></textarea>
+                            </div>
+                            <div class="stage-edit-box">
+                                <strong>المرحلة 02 (العناصر الطايرة)</strong>
+                                <input type="text" id="s2Title" placeholder="عنوان المرحلة 2">
+                                <textarea id="s2Desc" rows="2" placeholder="وصف المرحلة 2"></textarea>
+                            </div>
+                            <div class="stage-edit-box">
+                                <strong>المرحلة 03 (التشريح الهندسي)</strong>
+                                <input type="text" id="s3Title" placeholder="عنوان المرحلة 3">
+                                <textarea id="s3Desc" rows="2" placeholder="وصف المرحلة 3"></textarea>
+                            </div>
+                            <div class="stage-edit-box">
+                                <strong>المرحلة 04 (الختام)</strong>
+                                <input type="text" id="s4Title" placeholder="عنوان المرحلة 4">
+                                <textarea id="s4Desc" rows="2" placeholder="وصف المرحلة 4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= TAB 3: الواتساب والكوبونات والنسخ الاحتياطي ================= -->
+            <section class="tab-panel" id="settingsTab">
+                <div class="two-col-layout">
+                    <div class="panel-card">
+                        <h2>إعدادات المتجر والواتساب</h2>
+                        <div class="field-group">
+                            <label>اسم البراند (Brand Name)</label>
+                            <input type="text" id="brandNameInput" dir="ltr" placeholder="EL ZOZ">
+                        </div>
+                        <div class="field-group">
+                            <label>رقم الواتساب لاستقبال الطلبات (بدون علامة +)</label>
+                            <input type="text" id="whatsappInput" dir="ltr" placeholder="201000000000">
+                        </div>
+                        <div class="field-group">
+                            <label>نص الفوتر (أسفل الصفحة)</label>
+                            <input type="text" id="footerSubInput" placeholder="شحن لجميع محافظات مصر...">
+                        </div>
+                        <button type="button" class="primary-btn full-w" onclick="saveGeneralSettings()">حفظ الإعدادات العامة 💾</button>
+
+                        <hr class="divider">
+
+                        <h3>كوبونات الخصم (Promo Codes)</h3>
+                        <div class="promo-add-row">
+                            <input type="text" id="newPromoCode" placeholder="الكود (مثلاً ZOZ15)" dir="ltr">
+                            <input type="number" id="newPromoPercent" placeholder="النسبة % (مثلاً 15)" min="1" max="90">
+                            <button type="button" class="small-lime-btn" onclick="addPromoCode()">إضافة</button>
+                        </div>
+                        <div id="adminPromosList" class="promos-list"></div>
+                    </div>
+
+                    <div class="panel-card">
+                        <h2>نشر التعديلات أو استعادة الافتراضي</h2>
+                        <p class="hint-text" style="margin-bottom: 16px;">
+                            تعديلاتك بتتحفظ فوراً على جهازك. لو هترفع الموقع على استضافة (زي GitHub Pages أو Netlify) عشان الزباين يشوفوا التيشرتات والبانر الجديد من موبايلاتهم، حمل ملف <code>products.js</code> المحدث وحطه مكان القديم في فولدر <code>js/</code>.
+                        </p>
+                        <div class="backup-actions">
+                            <button type="button" class="primary-btn full-w" onclick="exportProductsJsFile()">⬇️ تحميل ملف js/products.js المحدث للنشر</button>
+                            <button type="button" class="danger-btn full-w" onclick="resetAllToDefault()">🔄 إعادة ضبط المتجر للوضع الافتراضي</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="toast-msg" id="toastMsg">تم الحفظ بنجاح!</div>
+
+    <script src="js/products.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

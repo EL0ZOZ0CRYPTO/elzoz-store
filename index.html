@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EL ZOZ | Engineered Streetwear</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="navbar">
+        <a href="#showcase" class="brand-logo" dir="ltr">
+            <span class="brand-mark" id="navBrandMark">Z</span>
+            <span class="brand-name en-font" id="navBrandName">EL ZOZ</span>
+        </a>
+
+        <nav class="nav-links en-font" dir="ltr">
+            <a href="#showcase" data-jump="0">SHOWCASE</a>
+            <a href="#showcase" data-jump="0.55">TECHNOLOGY</a>
+            <a href="#collection">COLLECTION</a>
+            <a href="javascript:void(0)" onclick="toggleSizeModal(true)">SIZE GUIDE</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button class="nav-btn" onclick="toggleSizeModal(true)" title="جدول المقاسات">
+                <span>📏</span>
+                <span class="hide-mobile">المقاسات</span>
+            </button>
+            <button class="nav-btn cart-trigger" onclick="toggleCart(true)">
+                <span>🛍️</span>
+                <span class="hide-mobile">السلة</span>
+                <span class="cart-badge en-font" id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ================= 4-STAGE SCROLLYTELLING SHOWCASE ================= -->
+    <section class="scrolly-wrapper" id="showcase" data-step="1">
+        <div class="sticky-stage" id="stickyStage">
+            <div class="ambient-glow" id="ambientGlow"></div>
+            <div class="tech-grid"></div>
+
+            <!-- العلامة الهندسية العلوية -->
+            <div class="hud-telemetry en-font" dir="ltr">
+                <span class="plus-mark">+</span>
+                <div>
+                    <strong id="hudTitle">TACTILE WEAVE</strong>
+                    <span id="hudSubtitle">280 GSM HEAVY COTTON</span>
+                </div>
+            </div>
+
+            <!-- نصوص المرحلة 01 -->
+            <div class="stage-copy pos-left active" id="copy-1">
+                <span class="stage-tag en-font" dir="ltr" id="stage1Tag">01 / PRECISION STREETWEAR</span>
+                <h1 class="stage-title" id="stage1Title">دقة في كل<br>تفصيلة وغرزة.</h1>
+                <p class="stage-desc" id="stage1Desc">
+                    تيشرتات مصممة بقصة أوفر سايز هندسية وخامة قطن مصري 100% تقيلة تمنحك هيبة وثبات في كل حركة.
+                </p>
+                <a href="#collection" class="lime-btn">
+                    <span>استكشف الكولكشن</span>
+                    <span class="en-font">→</span>
+                </a>
+            </div>
+
+            <!-- نصوص المرحلة 02 -->
+            <div class="stage-copy pos-right" id="copy-2">
+                <span class="stage-tag en-font" dir="ltr" id="stage2Tag">02 / STREET ARCHITECTURE</span>
+                <h2 class="stage-title" id="stage2Title">اكسر<br>المألوف.</h2>
+                <p class="stage-desc" id="stage2Desc">
+                    كل قطعة مبنية بطبقات طباعة بارزة وتفاصيل جرافيك حصرية تخليك مختلف في أي مكان.
+                </p>
+            </div>
+            <div class="stage-subnote" id="subnote-2">
+                كل غرزة معمولة بحساب.
+            </div>
+
+            <!-- نصوص المرحلة 03 -->
+            <div class="stage-copy pos-left" id="copy-3">
+                <span class="stage-tag en-font" dir="ltr" id="stage3Tag">03 / FABRIC TECHNOLOGY</span>
+                <h2 class="stage-title" id="stage3Title">مصمم من<br>الداخل ليدوم.</h2>
+                <p class="stage-desc" id="stage3Desc">
+                    نسيج قطني معالج ضد الانكماش والوبرة مع ياقة مزدوجة محبوكة تحافظ على شكلها الأصلي مهما اتغسلت.
+                </p>
+                <a href="#collection" class="lime-btn">
+                    <span>تصفح الموديلات</span>
+                    <span class="en-font">→</span>
+                </a>
+            </div>
+
+            <!-- نصوص المرحلة 04 -->
+            <div class="stage-copy pos-right" id="copy-4">
+                <span class="stage-tag en-font" dir="ltr" id="stage4Tag">04 / THE FINAL DROP</span>
+                <h2 class="stage-title" id="stage4Title">إحساس مختلف<br>تماماً في اللبس.</h2>
+                <p class="stage-desc" id="stage4Desc">
+                    إصدار محدود بكميات قليلة جداً.. اختار لونك ومقاسك واطلب أوردرك مباشرة على واتساب.
+                </p>
+                <a href="#collection" class="lime-btn">
+                    <span>تسوق الآن</span>
+                    <span class="en-font">↓</span>
+                </a>
+            </div>
+
+            <!-- العنصر المركزي التفاعلي -->
+            <div class="center-stage-object intro-zoom" id="centerObject">
+                <div class="garment-frame" id="garmentFrame">
+                    <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=85" 
+                         alt="EL ZOZ Oversized Tee" 
+                         class="hero-garment" 
+                         id="heroGarmentImg">
+                    <div class="rim-light"></div>
+                </div>
+
+                <!-- العناصر الطايرة في المرحلة 02 -->
+                <div class="floating-elements" aria-hidden="true">
+                    <div class="float-chip fc-1 en-font" id="chip1">280 GSM</div>
+                    <div class="float-chip fc-2 en-font" id="chip2">100% COTTON</div>
+                    <div class="float-chip fc-3 en-font" id="chip3">OVERSIZED</div>
+                    <div class="float-chip fc-4 en-font" id="chip4">PUFF INK</div>
+                    <div class="float-chip fc-5 en-font" id="chip5">DROP 01</div>
+                    <div class="float-chip fc-6 en-font" id="chip6">EL ZOZ®</div>
+                </div>
+
+                <!-- التشريح الهندسي المفكك في المرحلة 03 -->
+                <div class="exploded-anatomy" id="explodedAnatomy" dir="ltr">
+                    <div class="anatomy-layer layer-1">
+                        <div class="layer-plate collar-plate">
+                            <span class="en-font">DOUBLE-RIBBED COLLAR RING</span>
+                        </div>
+                        <div class="pointer-line right-ptr">
+                            <span class="ptr-dot"></span>
+                            <span class="ptr-stem"></span>
+                            <div class="ptr-text">
+                                <strong class="en-font">RIBBED COLLAR</strong>
+                                <span dir="rtl">ياقة مزدوجة لا ترتخي</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="anatomy-layer layer-2">
+                        <div class="layer-plate ink-plate">
+                            <span class="en-font">HD PUFF GRAPHIC MATRIX</span>
+                        </div>
+                        <div class="pointer-line left-ptr">
+                            <div class="ptr-text">
+                                <strong class="en-font">HIGH-DENSITY INK</strong>
+                                <span dir="rtl">طباعة بارزة ضد التشقق</span>
+                            </div>
+                            <span class="ptr-stem"></span>
+                            <span class="ptr-dot"></span>
+                        </div>
+                    </div>
+
+                    <div class="anatomy-layer layer-3">
+                        <div class="layer-plate cotton-plate">
+                            <span class="en-font">280 GSM EGYPTIAN COTTON CORE</span>
+                        </div>
+                        <div class="pointer-line right-ptr">
+                            <span class="ptr-dot"></span>
+                            <span class="ptr-stem"></span>
+                            <div class="ptr-text">
+                                <strong class="en-font">HEAVYWEIGHT WEAVE</strong>
+                                <span dir="rtl">قطن مصري معالج ضد الوبرة</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="anatomy-layer layer-4">
+                        <div class="layer-plate fit-plate">
+                            <span class="en-font">DROP-SHOULDER ARCHITECTURE</span>
+                        </div>
+                        <div class="pointer-line left-ptr">
+                            <div class="ptr-text">
+                                <strong class="en-font">REINFORCED SEAMS</strong>
+                                <span dir="rtl">تقفيل مزدوج لثبات القصة</span>
+                            </div>
+                            <span class="ptr-stem"></span>
+                            <span class="ptr-dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- شريط التقدم السفلي -->
+            <div class="progress-hud en-font" dir="ltr">
+                <span class="current-step" id="stepCounter">01</span>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                </div>
+                <span class="total-steps">04</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= STORE CATALOG SECTION ================= -->
+    <section class="catalog-section" id="collection">
+        <div class="catalog-header">
+            <div>
+                <span class="section-kicker en-font" dir="ltr">// DROP 01 CATALOG</span>
+                <h2 class="section-heading" id="catalogHeading">كولكشن <span>EL ZOZ</span> المتاح</h2>
+            </div>
+
+            <div class="filter-tabs" id="filterTabs">
+                <button class="filter-btn active" data-filter="all">الكل</button>
+                <button class="filter-btn" data-filter="oversized">أوفر سايز</button>
+                <button class="filter-btn" data-filter="graphic">جرافيك</button>
+                <button class="filter-btn" data-filter="basic">بيسك هيفي</button>
+            </div>
+
+            <div class="promo-callout" id="promoBannerText">
+                🎁 كود خصم 10%: <strong class="en-font">ZOZ10</strong>
+            </div>
+        </div>
+
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="site-footer">
+        <div class="footer-brand en-font" dir="ltr" id="footerBrandText">EL ZOZ STREETWEAR © 2026</div>
+        <p id="footerSubText">شحن لجميع محافظات مصر • الدفع عند الاستلام أو فودافون كاش / انستا باي</p>
+    </footer>
+
+    <!-- ================= SIZE GUIDE MODAL ================= -->
+    <div class="modal-backdrop" id="sizeModal" onclick="toggleSizeModal(false)">
+        <div class="modal-dialog" onclick="event.stopPropagation()">
+            <div class="modal-top">
+                <h3>📏 جدول مقاسات الأوفر سايز (بالسم)</h3>
+                <button class="close-icon" onclick="toggleSizeModal(false)">✖</button>
+            </div>
+            <p class="modal-sub">المقاسات مصممة بقصة Drop-Shoulder مريحة. لو بتحب المقاس مظبوط أكتر اختار نمرة أصغر.</p>
+            <table class="size-table">
+                <thead>
+                    <tr>
+                        <th>المقاس</th>
+                        <th>العرض (الصدر)</th>
+                        <th>الطول</th>
+                        <th>الوزن المقترح</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="en-font">S</td><td>54 سم</td><td>70 سم</td><td>50 - 62 كجم</td></tr>
+                    <tr><td class="en-font">M</td><td>56 سم</td><td>72 سم</td><td>62 - 75 كجم</td></tr>
+                    <tr><td class="en-font">L</td><td>59 سم</td><td>74 سم</td><td>75 - 88 كجم</td></tr>
+                    <tr><td class="en-font">XL</td><td>62 سم</td><td>76 سم</td><td>88 - 102 كجم</td></tr>
+                    <tr><td class="en-font">XXL</td><td>65 سم</td><td>78 سم</td><td>102 - 115 كجم</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ================= PRODUCT DETAILS MODAL ================= -->
+    <div class="modal-backdrop" id="detailsModal" onclick="toggleDetailsModal(false)">
+        <div class="modal-dialog details-dialog" onclick="event.stopPropagation()" id="detailsModalBody"></div>
+    </div>
+
+    <!-- ================= SLIDE-OUT CART DRAWER ================= -->
+    <div class="cart-backdrop" id="cartOverlay" onclick="toggleCart(false)"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="drawer-header">
+            <h3>سلة المشتريات 🛍️</h3>
+            <button class="close-icon" onclick="toggleCart(false)">✖</button>
+        </div>
+
+        <div class="cart-items-list" id="cartItemsList"></div>
+
+        <!-- كوبون الخصم -->
+        <div class="coupon-area">
+            <div class="coupon-input-group">
+                <input type="text" id="promoInput" placeholder="عندك كود خصم؟">
+                <button onclick="applyPromoCode()">تطبيق</button>
+            </div>
+            <small id="promoFeedback" class="promo-feedback"></small>
+        </div>
+
+        <!-- بيانات الشحن والدفع -->
+        <div class="checkout-panel">
+            <div class="summary-row">
+                <span>الإجمالي النهائي:</span>
+                <span class="final-price" id="cartTotal">0 جنيه</span>
+            </div>
+
+            <input type="text" id="custName" placeholder="الاسم بالكامل *" required>
+            <input type="tel" id="custPhone" placeholder="رقم الموبايل (واتساب) *" required>
+            <input type="text" id="custAddress" placeholder="العنوان بالتفصيل (المحافظة - المنطقة - الشارع) *" required>
+            
+            <select id="paymentMethod">
+                <option value="الدفع عند الاستلام (كاش)">الدفع عند الاستلام (كاش)</option>
+                <option value="فودافون كاش / انستا باي">فودافون كاش / انستا باي</option>
+            </select>
+
+            <button class="whatsapp-order-btn" onclick="checkoutViaWhatsApp()">
+                <span>إتمام الطلب عبر واتساب</span>
+                <span>💬</span>
+            </button>
+        </div>
+    </aside>
+
+    <script src="js/products.js"></script>
+    <script src="js/scrolly.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>
