@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" id="browserThemeMeta" content="#09090b">
     <title>EL ZOZ | Engineered Streetwear</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +23,7 @@
             <a href="#showcase" data-jump="0">SHOWCASE</a>
             <a href="#showcase" data-jump="0.55">TECHNOLOGY</a>
             <a href="#collection">COLLECTION</a>
+            <a href="#store-info">STORE INFO</a>
             <a href="javascript:void(0)" onclick="toggleSizeModal(true)">SIZE GUIDE</a>
         </nav>
 
@@ -30,11 +32,10 @@
                 <span>📏</span>
                 <span class="hide-mobile">المقاسات</span>
             </button>
-            <button class="nav-btn cart-trigger" onclick="toggleCart(true)">
-                <span>🛍️</span>
-                <span class="hide-mobile">السلة</span>
-                <span class="cart-badge en-font" id="cartCount">0</span>
-            </button>
+            <a href="#store-info" class="nav-btn" style="text-decoration:none;">
+                <span>🏪</span>
+                <span class="hide-mobile">في المحل فقط</span>
+            </a>
         </div>
     </header>
 
@@ -44,7 +45,6 @@
             <div class="ambient-glow" id="ambientGlow"></div>
             <div class="tech-grid"></div>
 
-            <!-- العلامة الهندسية العلوية -->
             <div class="hud-telemetry en-font" dir="ltr">
                 <span class="plus-mark">+</span>
                 <div>
@@ -53,7 +53,6 @@
                 </div>
             </div>
 
-            <!-- نصوص المرحلة 01 -->
             <div class="stage-copy pos-left active" id="copy-1">
                 <span class="stage-tag en-font" dir="ltr" id="stage1Tag">01 / PRECISION STREETWEAR</span>
                 <h1 class="stage-title" id="stage1Title">دقة في كل<br>تفصيلة وغرزة.</h1>
@@ -66,7 +65,6 @@
                 </a>
             </div>
 
-            <!-- نصوص المرحلة 02 -->
             <div class="stage-copy pos-right" id="copy-2">
                 <span class="stage-tag en-font" dir="ltr" id="stage2Tag">02 / STREET ARCHITECTURE</span>
                 <h2 class="stage-title" id="stage2Title">اكسر<br>المألوف.</h2>
@@ -78,7 +76,6 @@
                 كل غرزة معمولة بحساب.
             </div>
 
-            <!-- نصوص المرحلة 03 -->
             <div class="stage-copy pos-left" id="copy-3">
                 <span class="stage-tag en-font" dir="ltr" id="stage3Tag">03 / FABRIC TECHNOLOGY</span>
                 <h2 class="stage-title" id="stage3Title">مصمم من<br>الداخل ليدوم.</h2>
@@ -91,20 +88,18 @@
                 </a>
             </div>
 
-            <!-- نصوص المرحلة 04 -->
             <div class="stage-copy pos-right" id="copy-4">
                 <span class="stage-tag en-font" dir="ltr" id="stage4Tag">04 / THE FINAL DROP</span>
                 <h2 class="stage-title" id="stage4Title">إحساس مختلف<br>تماماً في اللبس.</h2>
                 <p class="stage-desc" id="stage4Desc">
-                    إصدار محدود بكميات قليلة جداً.. اختار لونك ومقاسك واطلب أوردرك مباشرة على واتساب.
+                    إصدار محدود بكميات قليلة جداً.. شوف الألوان والمقاسات المتاحة ونورنا في المحل للمعاينة والاستلام.
                 </p>
                 <a href="#collection" class="lime-btn">
-                    <span>تسوق الآن</span>
+                    <span>تصفح المتاح</span>
                     <span class="en-font">↓</span>
                 </a>
             </div>
 
-            <!-- العنصر المركزي التفاعلي -->
             <div class="center-stage-object intro-zoom" id="centerObject">
                 <div class="garment-frame" id="garmentFrame">
                     <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=85" 
@@ -114,7 +109,6 @@
                     <div class="rim-light"></div>
                 </div>
 
-                <!-- العناصر الطايرة في المرحلة 02 -->
                 <div class="floating-elements" aria-hidden="true">
                     <div class="float-chip fc-1 en-font" id="chip1">280 GSM</div>
                     <div class="float-chip fc-2 en-font" id="chip2">100% COTTON</div>
@@ -124,7 +118,6 @@
                     <div class="float-chip fc-6 en-font" id="chip6">EL ZOZ®</div>
                 </div>
 
-                <!-- التشريح الهندسي المفكك في المرحلة 03 -->
                 <div class="exploded-anatomy" id="explodedAnatomy" dir="ltr">
                     <div class="anatomy-layer layer-1">
                         <div class="layer-plate collar-plate">
@@ -184,7 +177,6 @@
                 </div>
             </div>
 
-            <!-- شريط التقدم السفلي -->
             <div class="progress-hud en-font" dir="ltr">
                 <span class="current-step" id="stepCounter">01</span>
                 <div class="progress-bar-bg">
@@ -194,6 +186,9 @@
             </div>
         </div>
     </section>
+
+    <!-- ================= STORE HOURS & CONTACT BANNER ================= -->
+    <section id="store-info" style="max-width:1280px;margin:40px auto 0;padding:0 20px;"></section>
 
     <!-- ================= STORE CATALOG SECTION ================= -->
     <section class="catalog-section" id="collection">
@@ -211,7 +206,7 @@
             </div>
 
             <div class="promo-callout" id="promoBannerText">
-                🎁 كود خصم 10%: <strong class="en-font">ZOZ10</strong>
+                🏪 <strong>البيع والدفع داخل المحل فقط</strong> • لا يوجد أوردرات أونلاين
             </div>
         </div>
 
@@ -221,7 +216,8 @@
     <!-- ================= FOOTER ================= -->
     <footer class="site-footer">
         <div class="footer-brand en-font" dir="ltr" id="footerBrandText">EL ZOZ STREETWEAR © 2026</div>
-        <p id="footerSubText">شحن لجميع محافظات مصر • الدفع عند الاستلام أو فودافون كاش / انستا باي</p>
+        <p id="footerSubText">البيع والدفع داخل المحل فقط • لا يوجد شحن أو أوردرات أونلاين</p>
+        <div id="footerSocialLinks" style="margin-top:12px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;"></div>
     </footer>
 
     <!-- ================= SIZE GUIDE MODAL ================= -->
@@ -257,50 +253,21 @@
         <div class="modal-dialog details-dialog" onclick="event.stopPropagation()" id="detailsModalBody"></div>
     </div>
 
-    <!-- ================= SLIDE-OUT CART DRAWER ================= -->
-    <div class="cart-backdrop" id="cartOverlay" onclick="toggleCart(false)"></div>
-    <aside class="cart-drawer" id="cartDrawer">
-        <div class="drawer-header">
-            <h3>سلة المشتريات 🛍️</h3>
-            <button class="close-icon" onclick="toggleCart(false)">✖</button>
-        </div>
-
-        <div class="cart-items-list" id="cartItemsList"></div>
-
-        <!-- كوبون الخصم -->
-        <div class="coupon-area">
-            <div class="coupon-input-group">
-                <input type="text" id="promoInput" placeholder="عندك كود خصم؟">
-                <button onclick="applyPromoCode()">تطبيق</button>
-            </div>
-            <small id="promoFeedback" class="promo-feedback"></small>
-        </div>
-
-        <!-- بيانات الشحن والدفع -->
-        <div class="checkout-panel">
-            <div class="summary-row">
-                <span>الإجمالي النهائي:</span>
-                <span class="final-price" id="cartTotal">0 جنيه</span>
-            </div>
-
-            <input type="text" id="custName" placeholder="الاسم بالكامل *" required>
-            <input type="tel" id="custPhone" placeholder="رقم الموبايل (واتساب) *" required>
-            <input type="text" id="custAddress" placeholder="العنوان بالتفصيل (المحافظة - المنطقة - الشارع) *" required>
-            
-            <select id="paymentMethod">
-                <option value="الدفع عند الاستلام (كاش)">الدفع عند الاستلام (كاش)</option>
-                <option value="فودافون كاش / انستا باي">فودافون كاش / انستا باي</option>
-            </select>
-
-            <button class="whatsapp-order-btn" onclick="checkoutViaWhatsApp()">
-                <span>إتمام الطلب عبر واتساب</span>
-                <span>💬</span>
-            </button>
-        </div>
-    </aside>
+    <!-- عناصر مخفية للتوافق مع cart.js بدون عرض أوردرات -->
+    <div style="display:none;">
+        <span id="cartCount">0</span>
+        <div id="cartOverlay"></div>
+        <aside id="cartDrawer"></aside>
+        <div id="cartItemsList"></div>
+        <input id="promoInput"><small id="promoFeedback"></small>
+        <span id="cartTotal">0</span>
+        <input id="custName"><input id="custPhone"><input id="custAddress"><select id="paymentMethod"></select>
+    </div>
 
     <script src="js/products.js"></script>
+    <script src="js/store-config.js"></script>
     <script src="js/scrolly.js"></script>
     <script src="js/cart.js"></script>
+    <script src="js/store-enhancements.js"></script>
 </body>
 </html>

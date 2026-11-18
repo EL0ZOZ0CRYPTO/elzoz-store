@@ -3,15 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" id="browserThemeMeta" content="#0a0a0c">
     <title>EL ZOZ | لوحة التحكم الخاصة</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/admin.css">
+    <style>
+        .theme-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 16px; }
+        .color-picker-box { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 10px 14px; border-radius: 10px; }
+        .color-picker-box input[type="color"] { width: 42px; height: 32px; border: none; background: transparent; cursor: pointer; }
+        .presets-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+        .preset-pill { background: #18181f; color: #fff; border: 1px solid rgba(255,255,255,0.12); padding: 7px 14px; border-radius: 999px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 0.85rem; transition: 0.2s; }
+        .preset-pill:hover { border-color: #c8ff00; transform: translateY(-1px); }
+    </style>
 </head>
 <body>
 
-    <!-- ================= LOGIN SCREEN (شاشة تسجيل الدخول) ================= -->
+    <!-- ================= LOGIN SCREEN ================= -->
     <div class="login-screen" id="loginScreen">
         <div class="login-card">
             <div class="login-badge en-font" dir="ltr">ADMIN ACCESS ONLY</div>
@@ -19,7 +28,7 @@
                 <span class="brand-mark">Z</span>
                 <span class="en-font">EL ZOZ PANEL</span>
             </div>
-            <p class="login-sub">سجّل الدخول للتحكم في التيشرتات، الأسعار، البانر، وصور المتجر</p>
+            <p class="login-sub">سجّل الدخول للتحكم في التيشرتات، الأسعار، الألوان، ومواعيد المحل</p>
 
             <form id="loginForm" onsubmit="handleAdminLogin(event)">
                 <div class="field-group">
@@ -42,14 +51,14 @@
         </div>
     </div>
 
-    <!-- ================= ADMIN DASHBOARD (لوحة التحكم بعد الدخول) ================= -->
+    <!-- ================= ADMIN DASHBOARD ================= -->
     <div class="dashboard-wrapper hidden" id="dashboardApp">
         <header class="admin-topbar">
             <div class="admin-brand" dir="ltr">
                 <span class="brand-mark">Z</span>
                 <div>
                     <strong class="en-font">EL ZOZ COMMAND CENTER</strong>
-                    <span class="status-dot">● متصل ومزامن</span>
+                    <span class="status-dot">● البيع داخل المحل فقط</span>
                 </div>
             </div>
 
@@ -60,33 +69,32 @@
         </header>
 
         <main class="admin-container">
-            <!-- إحصائيات سريعة -->
             <div class="stats-grid">
                 <div class="stat-box">
                     <span class="stat-label">عدد التيشرتات المعروضة</span>
                     <strong class="stat-value en-font" id="statProductsCount">0</strong>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">كوبونات الخصم الفعالة</span>
-                    <strong class="stat-value en-font" id="statPromosCount">0</strong>
+                    <span class="stat-label">نظام البيع والدفع</span>
+                    <strong class="stat-value" style="font-size:1.05rem;">في المحل فقط 🏪</strong>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">رقم واتساب الطلبات</span>
+                    <span class="stat-label">رقم واتساب الاستفسارات</span>
                     <strong class="stat-value en-font" id="statWhatsapp" dir="ltr">-</strong>
                 </div>
             </div>
 
-            <!-- التبويبات الرئيسية -->
+            <!-- التبويبات -->
             <div class="admin-tabs">
-                <button class="tab-btn active" onclick="switchTab('productsTab', this)">👕 إدارة التيشرتات والوصف</button>
-                <button class="tab-btn" onclick="switchTab('bannerTab', this)">🖼️ البانر والـ 4 مراحل والصور</button>
-                <button class="tab-btn" onclick="switchTab('settingsTab', this)">⚙️ الواتساب والكوبونات والنسخ</button>
+                <button class="tab-btn active" onclick="switchTab('productsTab', this)">👕 إدارة التيشرتات والأحجام</button>
+                <button class="tab-btn" onclick="switchTab('themeStoreTab', this)">🎨 ألوان المتصفح ومواعيد المحل</button>
+                <button class="tab-btn" onclick="switchTab('bannerTab', this)">🖼️ البانر والـ 4 مراحل</button>
+                <button class="tab-btn" onclick="switchTab('settingsTab', this)">⚙️ الإعدادات والنشر أونلاين</button>
             </div>
 
             <!-- ================= TAB 1: إدارة التيشرتات ================= -->
             <section class="tab-panel active" id="productsTab">
                 <div class="two-col-layout">
-                    <!-- فورم إضافة / تعديل تيشرت -->
                     <div class="panel-card">
                         <div class="card-head">
                             <h2 id="formModeTitle">+ إضافة تيشرت جديد</h2>
@@ -103,7 +111,7 @@
 
                             <div class="field-group">
                                 <label>وصف التيشرت (الخامة، القصة، التفاصيل) *</label>
-                                <textarea id="prodDesc" rows="3" placeholder="مثال: قطن مصري 100% تقيل معالج ضد الانكماش، طباعة بارزة عالية الجودة..." required></textarea>
+                                <textarea id="prodDesc" rows="3" placeholder="مثال: قطن مصري 100% تقيل معالج ضد الانكماش..." required></textarea>
                             </div>
 
                             <div class="row-2">
@@ -133,7 +141,7 @@
                             </div>
 
                             <div class="field-group">
-                                <label>المقاسات المتاحة</label>
+                                <label>الأحجام المتاحة حالياً في المحل</label>
                                 <div class="sizes-checkboxes" id="prodSizesBoxes">
                                     <label class="chk-pill"><input type="checkbox" value="S"> S</label>
                                     <label class="chk-pill"><input type="checkbox" value="M" checked> M</label>
@@ -143,31 +151,124 @@
                                 </div>
                             </div>
 
-                            <!-- ألوان وصور التيشرت -->
                             <div class="field-group">
                                 <div class="colors-header">
-                                    <label>ألوان وصور التيشرت (ارفع صورة من جهازك أو حط رابط)</label>
+                                    <label>الألوان المتاحة وصور كل لون</label>
                                     <button type="button" class="small-lime-btn" onclick="addColorVariantRow()">+ لون إضافي</button>
                                 </div>
                                 <div id="colorVariantsContainer" class="variants-list"></div>
                             </div>
 
-                            <button type="submit" class="primary-btn full-w" id="saveProdBtn">حفظ ونشر التيشرت في الموقع ✅</button>
+                            <button type="submit" class="primary-btn full-w" id="saveProdBtn">حفظ ونشر التيشرت ✅</button>
                         </form>
                     </div>
 
-                    <!-- قائمة التيشرتات الحالية -->
                     <div class="panel-card">
                         <div class="card-head">
                             <h2>التيشرتات المعروضة حالياً</h2>
-                            <span class="hint-text">أي تعديل بيظهر فوراً في المتجر</span>
+                            <span class="hint-text">اضغط تعديل لتغيير الأحجام أو الألوان المتاحة</span>
                         </div>
                         <div id="adminProductsList" class="admin-products-list"></div>
                     </div>
                 </div>
             </section>
 
-            <!-- ================= TAB 2: البانر والـ 4 مراحل ================= -->
+            <!-- ================= TAB 2 (جديد): ألوان المتصفح ومواعيد المحل والتواصل ================= -->
+            <section class="tab-panel" id="themeStoreTab">
+                <div class="two-col-layout">
+                    <!-- التحكم في ألوان المتصفح والموقع -->
+                    <div class="panel-card">
+                        <div class="card-head">
+                            <h2>🎨 ألوان المتصفح وثيم الموقع</h2>
+                        </div>
+
+                        <label style="display:block;margin-bottom:8px;">ثيمات جاهزة بضغطة واحدة:</label>
+                        <div class="presets-bar">
+                            <button type="button" class="preset-pill" onclick="applyStoreThemePreset('#c8ff00','#09090b','#121216','#ffffff','#09090b')">🟢 نيون ليموني × أسود</button>
+                            <button type="button" class="preset-pill" onclick="applyStoreThemePreset('#ff1e38','#09090b','#141418','#ffffff','#ff1e38')">🔴 أحمر ناري × أسود</button>
+                            <button type="button" class="preset-pill" onclick="applyStoreThemePreset('#f59e0b','#0c0a09','#181512','#fafaf9','#0c0a09')">🟡 ذهبي ملكي × أسود</button>
+                            <button type="button" class="preset-pill" onclick="applyStoreThemePreset('#00e5ff','#060b14','#0e1624','#f8fafc','#060b14')">🔵 أزرق سايبر × كحلي</button>
+                            <button type="button" class="preset-pill" onclick="applyStoreThemePreset('#a855f7','#09070f','#13101d','#f8fafc','#09070f')">🟣 بنفسجي × أسود</button>
+                            <button type="button" class="preset-pill" onclick="applyStoreThemePreset('#111827','#f4f4f5','#ffffff','#09090b','#111827')">⚪ وضع نهاري فاتح</button>
+                        </div>
+
+                        <div class="theme-grid">
+                            <div class="color-picker-box">
+                                <span>لون شريط المتصفح العلوي (Browser Bar)</span>
+                                <input type="color" id="cfgBrowserBarColor" value="#09090b" oninput="previewAdminTheme()">
+                            </div>
+                            <div class="color-picker-box">
+                                <span>اللون الأساسي للأزرار والأسعار</span>
+                                <input type="color" id="cfgAccentColor" value="#c8ff00" oninput="previewAdminTheme()">
+                            </div>
+                            <div class="color-picker-box">
+                                <span>لون خلفية الموقع (Background)</span>
+                                <input type="color" id="cfgBgColor" value="#09090b" oninput="previewAdminTheme()">
+                            </div>
+                            <div class="color-picker-box">
+                                <span>لون كروت المنتجات (Cards)</span>
+                                <input type="color" id="cfgCardColor" value="#121216" oninput="previewAdminTheme()">
+                            </div>
+                            <div class="color-picker-box">
+                                <span>لون النصوص (Text)</span>
+                                <input type="color" id="cfgTextColor" value="#ffffff" oninput="previewAdminTheme()">
+                            </div>
+                        </div>
+
+                        <button type="button" class="primary-btn full-w" onclick="saveStoreCustomConfig()">حفظ الألوان وتطبيقها 💾</button>
+                    </div>
+
+                    <!-- مواعيد العمل والدفع في المحل والتواصل -->
+                    <div class="panel-card">
+                        <div class="card-head">
+                            <h2>🏪 مواعيد الفتح والتواصل (بدون أوردرات)</h2>
+                        </div>
+
+                        <div class="field-group">
+                            <label>حالة المحل حالياً:</label>
+                            <select id="cfgStoreOpenStatus">
+                                <option value="open">🟢 المحل مفتوح الآن</option>
+                                <option value="closed">🔴 المحل مغلق حالياً</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label>مواعيد العمل (بنفتح إمتى وبنقفل إمتى):</label>
+                            <input type="text" id="cfgOpeningHours" placeholder="مثال: يومياً من 2:00 ظهراً حتى 12:00 منتصف الليل">
+                        </div>
+
+                        <div class="field-group">
+                            <label>تنبيه نظام الدفع (في المحل فقط):</label>
+                            <input type="text" id="cfgPaymentPolicy" value="البيع والدفع داخل المحل فقط — لا يوجد أوردرات أونلاين">
+                        </div>
+
+                        <div class="field-group">
+                            <label>عنوان المحل بالتفصيل:</label>
+                            <input type="text" id="cfgStoreAddress" placeholder="اكتب عنوان الفرع والمنطقة...">
+                        </div>
+
+                        <div class="field-group">
+                            <label>رابط لوكيشن المحل على Google Maps (اختياري):</label>
+                            <input type="text" id="cfgMapsLink" dir="ltr" placeholder="https://maps.google.com/...">
+                        </div>
+
+                        <div class="row-2">
+                            <div class="field-group">
+                                <label>رقم الواتساب للتواصل (بدون +):</label>
+                                <input type="text" id="cfgWhatsappDirect" dir="ltr" placeholder="201000000000">
+                            </div>
+                            <div class="field-group">
+                                <label>رابط حساب الإنستجرام:</label>
+                                <input type="text" id="cfgInstagramUrl" dir="ltr" placeholder="https://instagram.com/elzoz.store">
+                            </div>
+                        </div>
+
+                        <button type="button" class="primary-btn full-w" onclick="saveStoreCustomConfig()">حفظ بيانات المحل والتواصل ✅</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= TAB 3: البانر والـ 4 مراحل ================= -->
             <section class="tab-panel" id="bannerTab">
                 <div class="panel-card">
                     <div class="card-head">
@@ -207,12 +308,11 @@
                             </div>
 
                             <div class="field-group">
-                                <label>شريط الإعلان / الكوبون أعلى المنتجات</label>
-                                <input type="text" id="promoBannerInput" placeholder="🎁 كود خصم 10%: ZOZ10">
+                                <label>شريط الإعلان أعلى المنتجات</label>
+                                <input type="text" id="promoBannerInput" placeholder="🏪 المعاينة والدفع داخل الفرع فقط">
                             </div>
                         </div>
 
-                        <!-- تعديل نصوص الـ 4 مراحل -->
                         <div class="stages-editor">
                             <div class="stage-edit-box">
                                 <strong>المرحلة 01 (البداية)</strong>
@@ -239,43 +339,40 @@
                 </div>
             </section>
 
-            <!-- ================= TAB 3: الواتساب والكوبونات والنسخ الاحتياطي ================= -->
+            <!-- ================= TAB 4: النشر أونلاين ================= -->
             <section class="tab-panel" id="settingsTab">
                 <div class="two-col-layout">
                     <div class="panel-card">
-                        <h2>إعدادات المتجر والواتساب</h2>
+                        <h2>إعدادات البراند والفوتر</h2>
                         <div class="field-group">
                             <label>اسم البراند (Brand Name)</label>
                             <input type="text" id="brandNameInput" dir="ltr" placeholder="EL ZOZ">
                         </div>
                         <div class="field-group">
-                            <label>رقم الواتساب لاستقبال الطلبات (بدون علامة +)</label>
+                            <label>رقم الواتساب الأساسي (بدون علامة +)</label>
                             <input type="text" id="whatsappInput" dir="ltr" placeholder="201000000000">
                         </div>
                         <div class="field-group">
                             <label>نص الفوتر (أسفل الصفحة)</label>
-                            <input type="text" id="footerSubInput" placeholder="شحن لجميع محافظات مصر...">
+                            <input type="text" id="footerSubInput" value="البيع والدفع داخل المحل فقط • لا يوجد شحن أو أوردرات أونلاين">
                         </div>
                         <button type="button" class="primary-btn full-w" onclick="saveGeneralSettings()">حفظ الإعدادات العامة 💾</button>
 
-                        <hr class="divider">
-
-                        <h3>كوبونات الخصم (Promo Codes)</h3>
-                        <div class="promo-add-row">
-                            <input type="text" id="newPromoCode" placeholder="الكود (مثلاً ZOZ15)" dir="ltr">
-                            <input type="number" id="newPromoPercent" placeholder="النسبة % (مثلاً 15)" min="1" max="90">
-                            <button type="button" class="small-lime-btn" onclick="addPromoCode()">إضافة</button>
+                        <div style="display:none;">
+                            <input type="text" id="newPromoCode">
+                            <input type="number" id="newPromoPercent">
+                            <div id="adminPromosList"></div>
                         </div>
-                        <div id="adminPromosList" class="promos-list"></div>
                     </div>
 
                     <div class="panel-card">
-                        <h2>نشر التعديلات أو استعادة الافتراضي</h2>
-                        <p class="hint-text" style="margin-bottom: 16px;">
-                            تعديلاتك بتتحفظ فوراً على جهازك. لو هترفع الموقع على استضافة (زي GitHub Pages أو Netlify) عشان الزباين يشوفوا التيشرتات والبانر الجديد من موبايلاتهم، حمل ملف <code>products.js</code> المحدث وحطه مكان القديم في فولدر <code>js/</code>.
+                        <h2>نشر الألوان والمنتجات والمواعيد لكل الزوار 🚀</h2>
+                        <p class="hint-text" style="margin-bottom: 14px;">
+                            عشان التعديلات تظهر لأي حد يفتح موقعك من موبايله، حمل الملفين دول وارفعهم في مستودع <code>elzoz-store</code> على GitHub:
                         </p>
-                        <div class="backup-actions">
-                            <button type="button" class="primary-btn full-w" onclick="exportProductsJsFile()">⬇️ تحميل ملف js/products.js المحدث للنشر</button>
+                        <div class="backup-actions" style="display:grid;gap:10px;">
+                            <button type="button" class="primary-btn full-w" onclick="exportProductsJsFile()">1️⃣ تحميل ملف js/products.js (التيشرتات والبانر)</button>
+                            <button type="button" class="primary-btn full-w" style="background:#16a34a;color:#fff;" onclick="exportStoreConfigFile()">2️⃣ تحميل ملف js/store-config.js (الألوان ومواعيد المحل)</button>
                             <button type="button" class="danger-btn full-w" onclick="resetAllToDefault()">🔄 إعادة ضبط المتجر للوضع الافتراضي</button>
                         </div>
                     </div>
@@ -287,6 +384,8 @@
     <div class="toast-msg" id="toastMsg">تم الحفظ بنجاح!</div>
 
     <script src="js/products.js"></script>
+    <script src="js/store-config.js"></script>
     <script src="js/admin.js"></script>
+    <script src="js/store-enhancements.js"></script>
 </body>
 </html>
